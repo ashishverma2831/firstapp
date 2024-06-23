@@ -5,6 +5,7 @@ const LoginScreen = () => {
   return (
     <View style={styles.container}>
         <Text style={styles.text}>Login Screen</Text>
+        
     </View>
   )
 }
