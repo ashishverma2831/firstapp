@@ -1,12 +1,14 @@
 import { NavigationContainer} from '@react-navigation/native';
 import StackNavigator from './components/StackNavigator';
 import { StyleSheet } from 'react-native';
+import BottomTabsNavigator from './components/BottomTabsNavigator';
 
 
 export default function App() {
   return (
     <NavigationContainer>
-      <StackNavigator />
+      {/* <StackNavigator /> */}
+      <BottomTabsNavigator />
     </NavigationContainer>
   );
 }
