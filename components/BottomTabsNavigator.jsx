@@ -13,14 +13,19 @@ const MyTabBar = ({ state, descriptors, navigation }) => {
         <View style={tabBarStyles.container}>
             {
                 state.routes.map((route, index) => {
-                    return <MyTab key={route.key} route={route} index={index} />
+                    return <MyTab 
+                    key={route.key} 
+                    route={route} 
+                    active={index===state.index} 
+                    navigation={navigation}
+                    />
                 })
             }
         </View>
     )
 }
 
-const MyTab = ({ route, index }) => {
+const MyTab = ({ route, active, navigation }) => {
 
     const icons = {
         home: 'home',
@@ -29,8 +34,20 @@ const MyTab = ({ route, index }) => {
         about: 'information-outline'
     }
 
-    return <TouchableOpacity style={tabStyles.container}>
-        <MaterialIcon name={icons[route.name]} size={30} color={'black'} />
+    const handlePress = ()=>{
+        const event = navigation.emit({
+            type: 'tabPress',
+            target: route.key,
+            canPreventDefault: true,
+          });
+
+          if (!active && !event.defaultPrevented) {
+            navigation.navigate(route.name, route.params);
+          }
+    }
+
+    return <TouchableOpacity style={tabStyles.container} onPress={handlePress}>
+        <MaterialIcon name={icons[route.name]} size={30} color={active?'yellow':'black'} />
         <Text >{route.name}</Text>
     </TouchableOpacity>
 }
